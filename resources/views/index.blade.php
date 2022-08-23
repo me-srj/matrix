@@ -36,7 +36,7 @@
                 </form>
             </div>
             <br>
-            <%= myWelcome %>
+            <label class="alert alert-info"> <%= myWelcome %></label>
             <br>
             <div class="row">
                 <table class="table">
@@ -188,6 +188,7 @@
                 }).then(function mySuccess(response) {
                     console.log(response);
                     $scope.GetAll();
+                    $scope.myWelcome="Deleted Successfully!!";
                     if (response.data.status) {
 
                     }
