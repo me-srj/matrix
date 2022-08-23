@@ -122,11 +122,13 @@
                         beforeSend: function() {
                             //$("#preview").fadeOut();
                             $("#err").fadeOut();
+                            $scope.myWelcome="Uploading Image";
                         },
                         success: function(data) {
                             console.log(data);
                             document.getElementById("photo").value=data.imagename;
                             $scope.MainEdit(data.imagename);
+                            $scope.myWelcome="Image Uploaded";
                         },
                         error: function(e) {
                             $("#err").html(e).fadeIn();
@@ -138,6 +140,7 @@
                     method: 'POST',
                     url: $scope.baseUrl + '/Edit',
                     data: {
+                        id:$scope.SelectedID,
                         name: $scope.name,
                         email: $scope.email,
                         photo:img
@@ -146,6 +149,7 @@
                 }).then(function mySuccess(response) {
                     console.log(response);
                     $scope.GetAll();
+                    $scope.myWelcome="Uploaded Successfully";
                     if (response.data.status) {
 
                     }
@@ -184,6 +188,9 @@
                 }).then(function mySuccess(response) {
                     console.log(response);
                     $scope.GetAll();
+                    $scope.name="";
+                    $scope.email="";
+                    $scope.photo="";
                     if (response.data.status) {
 
                     }

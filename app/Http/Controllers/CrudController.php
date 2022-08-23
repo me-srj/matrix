@@ -42,32 +42,26 @@ class CrudController extends Controller
     }
     public function Edit(Request $request)
     {
-        $user=UserMatrix::where('id', $request->id)
+        $validated = $request->validate([
+        'id' => 'required',
+        'name' => 'required',
+        'email' => 'required',
+    ]);
+        $user=UserMatrix::where('id', $request->input("id"))
         ->first();
-        return $user;
         $name = $request->input("name");
         $email = $request->input("email");
-        $photo = $request->input("photo");
-        $res=array();
-        $res['data']= DB::table('user_matrices')->insert(
-            [
-                "name" => $name,
-                "email" => $email,
-                "photo"=>$photo
-            ]
-        );
-        if($res['data'])
-        {
-            $res['status']=true;
-        }
-        else
-        {
-            $res['status']=false;
-        }
-        return json_encode($res);
+            $user->name=$name;
+            $user->email=$email;
+           return $user->Save();
     }
     public function Save(Request $request)
     {
+        $validated = $request->validate([
+            'photo' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+        ]);
         $name = $request->input("name");
         $email = $request->input("email");
         $photo = $request->input("photo");
