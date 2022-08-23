@@ -27,6 +27,13 @@
             </div>
             <br>
             <%= myWelcome %>
+            <br>
+            <div class="row">
+                <table class="table">
+                    <tr><th>Sr.</th><th>name</th><th>email</th><th>Photo</th><th>Action</th></tr>
+                    <tr ng-repeat="item in Records"><td><%=  $index+1 %></td><td><%=  item.name %></td><td><%=  item.email %></td><td><%=  item.photo %></td><td><button ng-click="DeleteMe(item.id)" class="btn btn-danger">Delete</button></td></tr>
+                </table>
+            </div>
         </div>
     </div>
     <script>
@@ -76,6 +83,22 @@
                 }
             });
             }
+            $scope.DeleteMe=(id)=>{
+                $http({
+                    method: 'POST',
+                    url: $scope.baseUrl + '/Delete',
+                    data: {
+                        id: id,
+                    },
+                    headers: $scope.headers,
+                }).then(function mySuccess(response) {
+                    console.log(response);
+                    $scope.GetAll();
+                    if (response.data.status) {
+
+                    }
+                });
+            }
             $scope.MainSubmit=(img)=>{
                 $http({
                     method: 'POST',
@@ -88,6 +111,7 @@
                     headers: $scope.headers,
                 }).then(function mySuccess(response) {
                     console.log(response);
+                    $scope.GetAll();
                     if (response.data.status) {
 
                     }

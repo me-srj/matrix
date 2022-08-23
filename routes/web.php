@@ -20,3 +20,4 @@ Route::post('/ImageUpload', [CrudController::class,'upload']);
 
 Route::post('/Save', [CrudController::class,'Save']);
 Route::get("/GetAll",[CrudController::class,"GetAll"]);
+Route::post("/Delete",[CrudController::class,"Delete"]);

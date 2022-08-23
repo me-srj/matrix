@@ -53,4 +53,12 @@ class CrudController extends Controller
     {
         return DB::table('user_matrices')->get();
     }
+    public function Delete(Request $req)
+    {
+        $replyid=$req->input("id");
+        $del=DB::table('user_matrices')->where('id', $replyid)->first();
+        $up = DB::table('user_matrices')->where('id', $replyid)->delete();
+        unlink(public_path("uploads/".$del->photo));
+        return $up;
+    }
 }
