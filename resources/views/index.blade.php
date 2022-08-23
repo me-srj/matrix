@@ -17,8 +17,8 @@
         <div class="container">
             <div class="row">
                 <form id="myForm" ng-submit="mySubmit($event)">
-                    <input required type="text" id="name" name="name" ng-model="name">
-                    <input required type="text" id="email" name="email" ng-model="email">
+                    <input placeholder="Enter Name" required type="text" id="name" name="name" ng-model="name">
+                    <input placeholder="Enter Email" required type="email" id="email" name="email" ng-model="email">
                     <input type="hidden" id="photo" name="photo" ng-model="photo">
                     <input required type="file" name="file" id="Files">
                     <input type="submit" value="Add">
@@ -31,7 +31,7 @@
             <div class="row">
                 <table class="table">
                     <tr><th>Sr.</th><th>name</th><th>email</th><th>Photo</th><th>Action</th></tr>
-                    <tr ng-repeat="item in Records"><td><%=  $index+1 %></td><td><%=  item.name %></td><td><%=  item.email %></td><td><img src="uploads/<%=  item.photo %>"></td><td><button ng-click="DeleteMe(item.id)" class="btn btn-danger">Delete</button></td></tr>
+                    <tr ng-repeat="item in Records"><td><%=  $index+1 %></td><td><%=  item.name %></td><td><%=  item.email %></td><td><img class="image rounded-circle" style="width: 100px;height:100px" src="uploads/<%=  item.photo %>"></td><td><button ng-click="DeleteMe(item.id)" class="btn btn-danger">Delete</button></td></tr>
                 </table>
             </div>
         </div>
