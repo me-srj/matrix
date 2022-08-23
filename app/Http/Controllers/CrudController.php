@@ -19,41 +19,39 @@ class CrudController extends Controller
     public function upload(Request $request)
     {
         $image = $request->file('file');
-        $id="";
-        if(isset($request->id))
-        {
-            $id=$request->input("id");
+        $id = "";
+        if (isset($request->id)) {
+            $id = $request->input("id");
         }
         $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
         $img = Image::make($image->getRealPath());
         $img->resize(320, 240, function ($constraint) {
             $constraint->aspectRatio();
         })->save(public_path("/uploads") .  '/' . $input['imagename']);
-        if($id!="")
-        {
-            $old=DB::table('user_matrices')
-            ->where('id', $id)->first();
-            unlink(public_path("uploads/".$old->photo));
+        if ($id != "") {
+            $old = DB::table('user_matrices')
+                ->where('id', $id)->first();
+            unlink(public_path("uploads/" . $old->photo));
             DB::table('user_matrices')
-            ->where('id', $id)
-            ->update(['photo' => $input['imagename']]);
+                ->where('id', $id)
+                ->update(['photo' => $input['imagename']]);
         }
         return $input;
     }
     public function Edit(Request $request)
     {
         $validated = $request->validate([
-        'id' => 'required',
-        'name' => 'required',
-        'email' => 'required',
-    ]);
-        $user=UserMatrix::where('id', $request->input("id"))
-        ->first();
+            'id' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+        $user = UserMatrix::where('id', $request->input("id"))
+            ->first();
         $name = $request->input("name");
         $email = $request->input("email");
-            $user->name=$name;
-            $user->email=$email;
-           return $user->Save();
+        $user->name = $name;
+        $user->email = $email;
+        return $user->Save();
     }
     public function Save(Request $request)
     {
@@ -65,21 +63,18 @@ class CrudController extends Controller
         $name = $request->input("name");
         $email = $request->input("email");
         $photo = $request->input("photo");
-        $res=array();
-        $res['data']= DB::table('user_matrices')->insert(
+        $res = array();
+        $res['data'] = DB::table('user_matrices')->insert(
             [
                 "name" => $name,
                 "email" => $email,
-                "photo"=>$photo
+                "photo" => $photo
             ]
         );
-        if($res['data'])
-        {
-            $res['status']=true;
-        }
-        else
-        {
-            $res['status']=false;
+        if ($res['data']) {
+            $res['status'] = true;
+        } else {
+            $res['status'] = false;
         }
         return json_encode($res);
     }
@@ -89,10 +84,10 @@ class CrudController extends Controller
     }
     public function Delete(Request $req)
     {
-        $replyid=$req->input("id");
-        $del=DB::table('user_matrices')->where('id', $replyid)->first();
+        $replyid = $req->input("id");
+        $del = DB::table('user_matrices')->where('id', $replyid)->first();
         $up = DB::table('user_matrices')->where('id', $replyid)->delete();
-        unlink(public_path("uploads/".$del->photo));
+        unlink(public_path("uploads/" . $del->photo));
         return $up;
     }
 }

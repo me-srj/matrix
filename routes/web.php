@@ -14,11 +14,11 @@ use App\Http\Controllers\RestController;
 |
 */
 
-Route::get('/', [CrudController::class,'index']);
+Route::get('/', [CrudController::class, 'index']);
 
-Route::post('/ImageUpload', [CrudController::class,'upload']);
+Route::post('/ImageUpload', [CrudController::class, 'upload']);
 
-Route::post('/Save', [CrudController::class,'Save']);
-Route::post('/Edit', [CrudController::class,'Edit']);
-Route::get("/GetAll",[CrudController::class,"GetAll"]);
-Route::post("/Delete",[CrudController::class,"Delete"]);
+Route::post('/Save', [CrudController::class, 'Save']);
+Route::post('/Edit', [CrudController::class, 'Edit']);
+Route::get("/GetAll", [CrudController::class, "GetAll"]);
+Route::post("/Delete", [CrudController::class, "Delete"]);
